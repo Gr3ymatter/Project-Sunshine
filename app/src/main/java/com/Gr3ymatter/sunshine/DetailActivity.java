@@ -18,7 +18,6 @@ import org.apache.http.protocol.HTTP;
 
 public class DetailActivity extends ActionBarActivity {
 
-    ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class DetailActivity extends ActionBarActivity {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
+     * A DetailFragment  containing a simple view.
      */
     public static class DetailFragment extends Fragment {
 
