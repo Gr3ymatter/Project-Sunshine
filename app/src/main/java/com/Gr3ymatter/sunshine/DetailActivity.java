@@ -18,6 +18,7 @@ import org.apache.http.protocol.HTTP;
 
 public class DetailActivity extends ActionBarActivity {
 
+    ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
