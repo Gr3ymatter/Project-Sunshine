@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SunShine</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_pref_location">Location: </string>
+    <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="location" translatable = "false">Location</string>
+    <string name="location_key" translatable = "false">location</string>
+
+    <string name="default_location" translatable = "false">95136,USA</string>
+    <string name="location_hint" translatable = "false">Enter Postal Code and Country Code</string>
+    <string name="location_units_key" translatable = "false">units_key</string>
+    <string name="units_label">Units</string>
+
+</resources>
