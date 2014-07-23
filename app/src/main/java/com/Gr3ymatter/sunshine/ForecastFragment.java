@@ -41,6 +41,7 @@ import java.util.List;
 
 public class ForecastFragment extends Fragment {
 
+
     SharedPreferences prefs;
 
     ArrayAdapter<String> adapter;
