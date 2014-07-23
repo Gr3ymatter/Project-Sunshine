@@ -41,6 +41,7 @@ import java.util.List;
 
 public class ForecastFragment extends Fragment {
 
+    SharedPreferences prefs;
 
     ArrayAdapter<String> adapter;
     String  WEATHER_DETAIL = "Weather_Detail";
@@ -59,7 +60,10 @@ public class ForecastFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
+        location = prefs.getString(getString(R.string.location_key), getString(R.string.default_location));
+
         (menu.findItem(R.id.action_pref_location)).setTitle(getString(R.string.action_pref_location) +location);
+
     }
 
     @Override
@@ -76,7 +80,7 @@ public class ForecastFragment extends Fragment {
                 Toast.makeText(getActivity(),"Settings Launched", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_pref_location:
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 location = prefs.getString(getString(R.string.location_key), getString(R.string.default_location));
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
@@ -97,12 +101,17 @@ public class ForecastFragment extends Fragment {
     private void updateWeather(){
         FetchWeatherTask task = new FetchWeatherTask();
 
-        //SharedPreferences pref = this.getActivity().getSharedPreferences(FILENAME,0);
+        //The getSharedPreference returns a preference object but the object is not updated
+        //When my settings change. i.e i always get the default location key, irregardless
+        //of whether i change it settings. If i use Preference Manager, then it works
+        // and the preferences get updated.. Am i missing something?
 
-        //String location = (getActivity().getSharedPreferences(FILENAME,0)).getString(getString(R.string.location_key), getString(R.string.default_location));
-        //Log.d("DEBUG", location);
+//        prefs = this.getActivity().getSharedPreferences(FILENAME,0);
+//
+//        String location = prefs.getString(getString(R.string.location_key), getString(R.string.default_location));
+//        Log.d("DEBUG", location);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String units = prefs.getString(getString(R.string.location_units_key), "metric");
         location = prefs.getString(getString(R.string.location_key), getString(R.string.default_location));
         Toast.makeText(getActivity(), location, Toast.LENGTH_SHORT).show();
