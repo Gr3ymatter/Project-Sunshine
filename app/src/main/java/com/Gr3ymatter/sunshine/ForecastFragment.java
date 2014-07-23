@@ -42,7 +42,6 @@ import java.util.List;
 public class ForecastFragment extends Fragment {
 
     SharedPreferences prefs;
-
     ArrayAdapter<String> adapter;
     String  WEATHER_DETAIL = "Weather_Detail";
     String FILENAME = "pref_general";
