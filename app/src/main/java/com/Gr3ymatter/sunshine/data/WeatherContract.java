@@ -1,4 +1,4 @@
-package data;
+package com.Gr3ymatter.sunshine.data;
 
 import android.provider.BaseColumns;
 

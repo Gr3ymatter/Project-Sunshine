@@ -198,7 +198,7 @@ public class ForecastFragment extends Fragment {
 
         /**
          * Take the String representing the complete forecast in JSON Format and
-         * pull out the data we need to construct the Strings needed for the wireframes.
+         * pull out the com.Gr3ymatter.sunshine.data we need to construct the Strings needed for the wireframes.
          *
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
@@ -292,7 +292,7 @@ public class ForecastFragment extends Fragment {
                         .appendQueryParameter(UNIT_PARAM, units)
                         .appendQueryParameter(DAYS_PARAM, days.toString()).build();
 
-
+                Log.d(FetchWeatherTask.class.getSimpleName().toString(), builtUrl.toString());
 
 
                 // Construct the URL for the OpenWeatherMap query
@@ -330,7 +330,7 @@ public class ForecastFragment extends Fragment {
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error IO Exception", e);
-                // If the code didn't successfully get the weather data, there's no point in attemping
+                // If the code didn't successfully get the weather com.Gr3ymatter.sunshine.data, there's no point in attemping
                 // to parse it.
                 return null;
             } finally {
