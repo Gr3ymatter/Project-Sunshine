@@ -67,12 +67,9 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 WeatherEntry.COLUMN_LOC_KEY + ") ON CONFLICT REPLACE);";
 
 
-
-
-
-
-        db.execSQL(SQL_CREATE_LOCATION_TABLE);
-        db.execSQL(SQL_CREATE_WEATHER_TABLE);
+                // TO create the tables use db.execSQL functions
+                db.execSQL(SQL_CREATE_LOCATION_TABLE);
+                db.execSQL(SQL_CREATE_WEATHER_TABLE);
 
 
 
