@@ -34,6 +34,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     // Each Loader has an ID. This allows us to have multiple loaders and differentiate
     // between them.
     private static final int FORECAST_LOADER = 0;
+    private static final String POSITION_KEY = "position";
+    private int mPosition = 0;
 
     private static final String[] FORECAST_COLUMNS = {
             WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry._ID,
@@ -59,7 +61,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     String  WEATHER_DETAIL = "Weather_Detail";
     String FILENAME = "pref_general";
     String location;
-
+    ListView mListView;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -161,19 +163,38 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(mPosition != ListView.INVALID_POSITION)
+            outState.putInt(POSITION_KEY, mPosition);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
 
 
         adapter = new ForecastAdapter(getActivity(),null, 0);
 
-        ListView listView = (ListView)rootView.findViewById(R.id.listview_forecast);
+        mListView = (ListView)rootView.findViewById(R.id.listview_forecast);
 
-        listView.setAdapter(adapter);
+        mListView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        if(savedInstanceState != null) {
+             mPosition = savedInstanceState.getInt(POSITION_KEY);
+        }
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -182,6 +203,9 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
 
                 if(null != cursor && cursor.moveToPosition(position)){
+
+                     mPosition = position;
+
                     String dateExtra = cursor.getString(COL_WEATHER_DATE);
                     ((Callback)getActivity()).onItemSelected(dateExtra);
                 }
@@ -228,6 +252,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter.swapCursor(data);
+        if(mPosition != ListView.INVALID_POSITION)
+           mListView.smoothScrollToPosition(mPosition);
         if(mLocation == null || !mLocation.equals(Utility.getPreferredLocation(getActivity()))){
             getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
         }
