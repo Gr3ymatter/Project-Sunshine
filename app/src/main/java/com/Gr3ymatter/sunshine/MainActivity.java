@@ -22,6 +22,9 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             // in two-pane mode.
             mTwoPane = true;
 
+            ForecastFragment fragment  = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
+            fragment.adapter.useTodayLayout(false);
+
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
@@ -31,6 +34,8 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                         .commit();
             }
         } else {
+            ForecastFragment fragment  = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
+            fragment.adapter.useTodayLayout(true);
             mTwoPane = false;
         }
     }
